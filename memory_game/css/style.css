@@ -86,3 +86,12 @@ a:hover{
   border-color: white;
 
 }
+
+button{
+padding: 10px;
+margin: 10px
+background-color = blue;
+color = red;
+
+
+}
