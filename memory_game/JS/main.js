@@ -24,18 +24,60 @@ var cards = [
 
 ];
 var cardsInPlay = [];
+
+var score = 0;
 function checkForMatch(){
 
 
   if (cardsInPlay[0] === cardsInPlay[1]) {
   alert("You found a match!");
+  score++;
+document.getElementById('score').textContent ='SCORE: '+ score;
+
 } else {
   alert("Sorry, try again.");
 }
 }
 
+function shuffle(array) {
+    var i = array.length,
+        j = 0,
+        temp;
+
+    while (i--) {
+
+        j = Math.floor(Math.random() * (i+1));
+
+        // swap randomly chosen element with current element
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+
+    }
+
+    return array;
+}
+
+var nums = shuffle([0,1,2,3]);
+var resetBoard =function(){
+  cardsInPlay =[];
+document.getElementById('game-board').innerHTML = "";
+for (var i = 0; i < cards.length; i++) {
+  var cardElement = document.createElement('img');
+  cardElement.setAttribute('src' , "images/back.png");
+  cardElement.setAttribute('data-id' , i);
+  cardElement.addEventListener('click' , flipCard);
+  document.getElementById('game-board').appendChild(cardElement);
+}
+nums = shuffle([0,1,2,3]);
+}
+
+
+
 function flipCard(){
-var cardId = this.getAttribute('data-id');
+var id = nums[nums.length-1];
+
+var cardId =   id;          //this.getAttribute('data-id');
   cardsInPlay.push(cards[cardId].rank);
 console.log("User flipped " + cards[cardId].rank);;
 
@@ -49,26 +91,11 @@ this.setAttribute('src' , cards[cardId].cardImage);
     checkForMatch();
 
   }
+  nums.pop();
 }
 
-var clearBoard = function(num){
-console.log("hhh");
-     document.querySelector('.b3o').innerHTML = "";
 
-}
 
-var resetBoard =function(){
-  cardsInPlay =[];
-document.getElementById('game-board').innerHTML = "";
-for (var i = 0; i < cards.length; i++) {
-  var cardElement = document.createElement('img');
-  cardElement.setAttribute('src' , "images/back.png");
-  cardElement.setAttribute('data-id' , i);
-  cardElement.addEventListener('click' , flipCard);
-  document.getElementById('game-board').appendChild(cardElement);
-}
-
-}
 
 var createBoard = function(){
 
